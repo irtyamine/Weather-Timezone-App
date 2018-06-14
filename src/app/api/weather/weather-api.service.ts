@@ -13,7 +13,6 @@ const id = "985b1280f5e6b2a64f9e84ef27113358";
 })
 export class WeatherApiService {
 	WEATHER_ITEMS: WeatherItem[] = [];
-	public notFound: boolean     = false;
 
 	constructor(private http: Http, private router: Router) { }
 
@@ -32,7 +31,10 @@ export class WeatherApiService {
 		return this.http
 		.get(`${endpoint}?q=${search}&appid=${id}&units=metric`)
 		.pipe(
-			map(res => res.json()),
+			map(res => { 
+				sessionStorage.setItem('notFound', 'false');
+				return res.json();
+			}),
 			catchError(this.handleError)
 		);
 	}
@@ -54,8 +56,8 @@ export class WeatherApiService {
 
 	// error handler
 	private handleError(error:any, caught:any): any{
-		this.notFound = true;
-		console.log(error, caught)
+		sessionStorage.setItem('notFound', 'true');
+		throw error;
 	}
 
 }

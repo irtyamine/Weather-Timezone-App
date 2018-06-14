@@ -12,7 +12,7 @@ import { WeatherItem } from "./weather-item";
 export class WeatherListComponent implements OnInit {
 	private req : any;
 	items       : any;
-	notFound    : boolean = false;
+	notFound    : any;
 	input       : IWeatherInput;
 
 	constructor(private router:Router, 
@@ -83,19 +83,27 @@ export class WeatherListComponent implements OnInit {
 
 			this.weatherApiService.addWeatherItem(weatherItem);
 			this.input = <IWeatherInput>{}
-			
+			this.notFound = sessionStorage.getItem('notFound');
 			console.log(this.weatherApiService.getWeatherItems());
 		}, 
 		// If error in server/api temporary navigate to error page
 		err => {
+			this.notFound = sessionStorage.getItem('notFound');
 			console.log(err)
 		});
+
+
 	}
 
 	// Remove city by array ID
 	removeCityCountry(index){
 		this.weatherApiService.clearWeatherItems(index);
 		console.log(this.weatherApiService.getWeatherItems());
+	}
+
+	closeModal(){
+		this.notFound = null;
+		sessionStorage.removeItem('notFound')
 	}
 
 	ngOnDestroy(){

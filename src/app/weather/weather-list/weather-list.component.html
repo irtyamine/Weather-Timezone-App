@@ -1,3 +1,23 @@
+<!-- Modal -->
+<div id="notFoundModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" [ngClass]="notFound=='true' ? 'modal fade show fade-show': 'modal fade'">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="modalLabel">Address Not Found!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The Address you are looking for does not exist.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section id="search-weather">
 	<div class="d-none d-sm-none d-md-block">
 		<form class="form-inline float-right"  (submit)="addCityCountry()">
@@ -9,9 +29,18 @@
 		<br><br>
 		<small class="container-text">i.e. London, Uk | Manila, PH | New York, USA</small>
 	</div>	
-</section>
 
-{{notFound}}
+	<div class="d-block d-sm-block d-md-none">
+		<form class="form"  (submit)="addCityCountry()">
+			<div class="form-group">
+				<input type="email" class="form-control" [(ngModel)]="input.search" [ngModelOptions]="{standalone: true}" placeholder="City, Country">
+				<small class="container-text">i.e. London, Uk | Manila, PH | New York, USA</small>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-outline-primary float-right btn-sm">Add Place</button>
+		</form><br>
+	</div>	
+</section>
 
 <section id="weather-list" class="container-fluid mt-5">
 	<div class="table-responsive">
