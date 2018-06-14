@@ -19,20 +19,46 @@ export class WeatherListComponent implements OnInit {
 		private weatherApiService: WeatherApiService) { }
 
 	ngOnInit() {
-		// initialize Manila, PH as main 
-		this.req = this.weatherApiService.getCurrentWeatherData('Manila', 'PH').subscribe(result => {
-			let weatherItem = new WeatherItem(
-				result.name, 
-				result.sys.country, 
-				result.main.temp, 
-				result.weather[0].main + ', ' + result.weather[0].description
-			);
-			//initial item
-			this.weatherApiService.addWeatherItem(weatherItem);
-			this.items = this.weatherApiService.getWeatherItems();
+		this.getLocation();	
+	}
 
-			console.log(this.items, result);
-		});
+	getLocation() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition((
+	        //Set longitude and latitude
+	        position => {
+	        	this.req = this.weatherApiService
+	        	.getCurrentWeatherByLocation(position.coords.latitude, position.coords.longitude)
+	        	.subscribe(result => {
+	        		let weatherItem = new WeatherItem(
+	        			result.name, 
+	        			result.sys.country, 
+	        			result.main.temp, 
+	        			result.weather[0].main + ', ' + result.weather[0].description
+	        		);
+	        		//initial item
+	        		this.weatherApiService.addWeatherItem(weatherItem);
+	        		this.items = this.weatherApiService.getWeatherItems();
+	        	});
+	        }), this.showGeolocationError);
+	    } else { 
+	        console.log("Geolocation is not supported by this browser.");
+	    }
+	}
+
+	// Geolocation error
+	showGeolocationError(error){
+		switch(error.code) {
+	        case error.PERMISSION_DENIED:
+	            console.log("User denied the request for Geolocation.")
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	        	console.log("Location information is unavailable.")
+	            break;
+	        case error.TIMEOUT:
+	        	console.log("The request to get user location timed out.")
+	            break;
+	    }
 	}
 
 	ngOnDestroy(){

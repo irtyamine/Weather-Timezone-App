@@ -16,7 +16,16 @@ export class WeatherApiService {
 
 	constructor(private http: Http, private router: Router) { }
 
-	getCurrentWeatherData(city:string, country: string): Observable<any>{
+	getCurrentWeatherByLocation(lat:number, lon: number): Observable<any>{
+		return this.http
+		.get(`${endpoint}?lat=${lat}&lon=${lon}&appid=${id}&units=metric`)
+		.pipe(
+			map(res => res.json()),
+			catchError(this.handleError)
+		);
+	}
+
+	searchWeatherData(city:string, country: string): Observable<any>{
 		return this.http
 		.get(`${endpoint}?q=${city},${country}&appid=${id}&units=metric`)
 		.pipe(
