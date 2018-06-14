@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-gradient-navbar-same">
+	<nav class="container">
+		<button class="navbar-toggler"></button>
+
+		<a class="navbar-brand text-u" routerLink="/">
+			Weatzene
+		</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				
+
+				<li class="nav-item">
+					<a class="nav-link  pt-3" routerLink="/"> Dashboard 
+					
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link  pt-3" routerLink="/"> About 
+					
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link  pt-3" href="#"> FAQ 
+					
+					</a>
+				</li>
+			</ul>
+
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<span class="nav-link  pt-3"> {{currentDate | date: 'MMM d, y | h:mm:ss a'}} 
+					
+					</span>
+				</li>
+			</ul>
+		</div>
+		
+	</nav>
+</nav>
+
+<div class="mt-5" [ngClass]="fixed ? 'd-block': 'd-none'"><br></div>
+
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid footer-background-gradient">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 text-center bg-img py-5">
+
+      <div class="container-text my-5 py-4">
+      	<h5>Check Weather and Timezone</h5>
+      	<h1 class="text-white container-text"><strong class="header-home">Welcome to Weatzene</strong></h1>
+      	<button class="btn text-white btn-activity btn-header bg-gradient"><span class="fa fa-chevron-circle-right btn-header-arrow"></span></button>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,15 @@
+.btn-activity{
+	font-size: 16px;
+
+  	&:hover{
+  		-moz-transition: all 0.2s;
+  		-webkit-transition: all 0.2s;
+  		-o-transition: all 0.2s;
+  		transition: all 0.2s;
+	  	background: rgba(120, 88, 173,1) !important;
+	  	font-size: 18px;
+	}
+}
+
+
+

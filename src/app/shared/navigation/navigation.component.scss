@@ -1,0 +1,134 @@
+
+/* Define how each icon button should look like */
+.button {
+  color: white;
+  display: inline-block; /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
+  position: relative; /* All 'absolute'ly positioned elements are relative to this one */
+  padding: 2px 5px; /* Add some padding so it looks nice */
+  cursor: pointer;
+}
+
+/* Make the badge float in the top right corner of the button */
+.button__badge {
+  background-color: #fa3e3e;
+  border-radius: 15px;
+  color: white;
+ 
+  padding: 1px 5px;
+  font-size: 10px;
+  
+  position: absolute; /* Position the badge within the relatively positioned button */
+  top: 28px;
+  left: 15px;
+}
+
+.fixed-top{
+    -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 0.5s; /* Firefox < 16 */
+        -ms-animation: fadein 0.5s; /* Internet Explorer */
+         -o-animation: fadein 0.5s; /* Opera < 12.1 */
+            animation: fadein 0.5s;
+}
+
+
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.bg-img {
+    background: url(/assets/images/header.jpg)no-repeat center center; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0; 
+        right: 0;
+        top: 0; 
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+    }
+}
+
+.container-text {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.header-home{
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 50px;
+}
+
+.btn-header{
+  position: absolute;
+  top: 147%;
+  right: 2%;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
+  &:hover{
+    -moz-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
+  }
+}
+
+.btn-header-arrow{
+  -moz-transform: rotate(-45deg) !important;
+  -webkit-transform: rotate(-45deg) !important;
+  -o-transform: rotate(-45deg) !important;
+  transform: rotate(-45deg) !important;
+  font-size: 18px !important;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.btn-activity{
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    &:hover{
+      -moz-transform: rotate(135deg) !important;
+      -webkit-transform: rotate(135deg) !important;
+      -o-transform: rotate(135deg) !important;
+      background: rgba(120, 88, 173,1) !important;
+  }
+}
