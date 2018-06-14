@@ -11,17 +11,18 @@ import { WeatherItem } from "./weather-item";
 })
 export class WeatherListComponent implements OnInit {
 	private req: any;
-
+	input: IWeatherInput;
 	items: any;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
-		private weatherApiService: WeatherApiService) { }
+		private weatherApiService: WeatherApiService) {  this.input = <IWeatherInput>{} }
 
 	ngOnInit() {
 		this.getLocation();	
 	}
 
+	// Get your current location
 	getLocation() {
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition((
@@ -61,9 +62,39 @@ export class WeatherListComponent implements OnInit {
 	    }
 	}
 
+	addCityCountry(){
+		this.req = this.weatherApiService
+		.searchWeatherData(this.input.city, this.input.country)
+		.subscribe((result) => {
+			let weatherItem = new WeatherItem(
+				result.name, 
+				result.sys.country, 
+				result.main.temp, 
+				result.weather[0].main + ', ' + result.weather[0].description
+			);
+
+			this.weatherApiService.addWeatherItem(weatherItem);
+			this.input = <IWeatherInput>{}
+
+
+			console.log(this.weatherApiService.getWeatherItems())
+		});
+	}
+
+	removeCityCountry(value){
+		this.weatherApiService.clearWeatherItems(value);
+
+		console.log(this.weatherApiService.getWeatherItems())
+	}
+
 	ngOnDestroy(){
 		if(this.req) this.req.unsubscribe();
 	}
 
 }
 
+
+interface IWeatherInput{
+	city    : string,
+	country : string
+}

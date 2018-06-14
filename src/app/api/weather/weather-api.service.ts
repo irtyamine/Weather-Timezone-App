@@ -16,6 +16,7 @@ export class WeatherApiService {
 
 	constructor(private http: Http, private router: Router) { }
 
+	// Get weather data by geolocation
 	getCurrentWeatherByLocation(lat:number, lon: number): Observable<any>{
 		return this.http
 		.get(`${endpoint}?lat=${lat}&lon=${lon}&appid=${id}&units=metric`)
@@ -25,6 +26,7 @@ export class WeatherApiService {
 		);
 	}
 
+	// Search weather data by city and country
 	searchWeatherData(city:string, country: string): Observable<any>{
 		return this.http
 		.get(`${endpoint}?q=${city},${country}&appid=${id}&units=metric`)
@@ -34,13 +36,19 @@ export class WeatherApiService {
 		);
 	}
 
-
+	// Get list of weather items
 	getWeatherItems() {
         return this.WEATHER_ITEMS;
     }
 
+    // Add weather Item
     addWeatherItem(weatherItem: WeatherItem) {
         this.WEATHER_ITEMS.push(weatherItem);
+    }
+
+    // Remove selected weather item
+    clearWeatherItems(item) {
+        this.WEATHER_ITEMS.splice(this.WEATHER_ITEMS.indexOf(item), 1);
     }
 
 	// error handler
