@@ -1,14 +1,12 @@
 <div class="table-responsive" >
 	<table class="table table-condensed table-borderless table-hover">
 		<tbody>
-			<tr>
-				<td>
-					<span>{{results?.city}}, {{results?.country}}</span> <br>
-					<span class="mt-1 text-muted info-text-right float-right"> {{results?.temperature}}°c</span>
-					<small class="pt-2">
-					{{results?.weather}}</small><br>
-					<small class="pt-3 text-muted">
-					</small>
+			<tr *ngFor="let item of items">
+				<td  class="px-2">
+					<h5 class="text-primary">{{item.city}}, {{item.country}}</h5>
+					<h4 class="text-muted info-text-right float-right"> {{item.temperature}}°c</h4>
+					<h6 class="pt-2">
+					{{item.weather}}</h6><br>
 				</td>
 			</tr>
 		</tbody>
