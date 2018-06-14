@@ -1,28 +1,33 @@
-<div class="float-right">
-	<form class="form-inline"  (submit)="addCityCountry()">
-		<div class="form-group">
-			<input type="email" class="form-control" [(ngModel)]="input.city" [ngModelOptions]="{standalone: true}" placeholder="City">
-			<input type="email" class="form-control" [(ngModel)]="input.country" [ngModelOptions]="{standalone: true}" placeholder="Country">
-		</div>
+<section id="search-weather">
+	<div class="d-none d-sm-none d-md-block">
+		<form class="form-inline float-right"  (submit)="addCityCountry()">
+			<div class="form-group">
+				<input type="email" class="form-control" [(ngModel)]="input.search" [ngModelOptions]="{standalone: true}" placeholder="City, Country">
+			</div>
+			<button type="submit" class="btn btn-outline-primary">Add Place</button>
+		</form>
+		<br><br>
+		<small class="container-text">i.e. London, Uk | Manila, PH | New York, USA</small>
+	</div>	
+</section>
 
-		<button type="submit" class="btn btn-outline-primary">Add Place</button>
-	</form>
-</div>
+{{notFound}}
 
-
-<div class="table-responsive" >
-	<table class="table table-condensed table-borderless table-hover">
-		<tbody>
-			<tr *ngFor="let item of items; let i=index">
-				<td  class="px-2">
-					<h5 class="text-primary">{{item.city}}, {{item.country}}</h5>
-					
-					<h4 class="text-info info-text-right float-right"> {{item.temperature}}°c</h4>
-					<h6 class="pt-2">{{item.weather}}</h6><br>
-				</td>
-				<td width="20px;"><span class="float-right btn btn-sm btn-danger rounded-circle" 
-					(click)="removeCityCountry(i)">x</span></td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+<section id="weather-list" class="container-fluid mt-5">
+	<div class="table-responsive">
+		<table class="table table-condensed table-borderless table-hover">
+			<tbody>
+				<tr *ngFor="let item of items; let i=index">
+					<td  class="px-2">
+						<h5 class="text-primary">{{item.city}}, {{item.country}}</h5>
+						
+						<h4 class="text-info info-text-right float-right"> {{item.temperature}}°c</h4>
+						<h6 class="pt-2">{{item.weather}}</h6><br>
+					</td>
+					<td width="20px;"><span class="float-right btn btn-sm btn-danger rounded-circle" 
+						(click)="removeCityCountry(i)">x</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

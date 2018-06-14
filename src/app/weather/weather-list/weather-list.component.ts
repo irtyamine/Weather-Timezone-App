@@ -10,9 +10,10 @@ import { WeatherItem } from "./weather-item";
 	providers: [WeatherApiService]
 })
 export class WeatherListComponent implements OnInit {
-	private req: any;
-	input: IWeatherInput;
-	items: any;
+	private req : any;
+	items       : any;
+	notFound    : boolean = false;
+	input       : IWeatherInput;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
@@ -37,10 +38,15 @@ export class WeatherListComponent implements OnInit {
 	        			result.main.temp, 
 	        			result.weather[0].main + ', ' + result.weather[0].description
 	        		);
+
 	        		//initial item
 	        		this.weatherApiService.addWeatherItem(weatherItem);
 	        		this.items = this.weatherApiService.getWeatherItems();
-	        	});
+	        	},
+			  	// If error in server/api temporary navigate to error page
+				err => {
+					console.log(err);
+				});
 	        }), this.showGeolocationError);
 	    } else { 
 	        console.log("Geolocation is not supported by this browser.");
@@ -62,9 +68,11 @@ export class WeatherListComponent implements OnInit {
 	    }
 	}
 
+
+	// Add weather data by city and country
 	addCityCountry(){
 		this.req = this.weatherApiService
-		.searchWeatherData(this.input.city, this.input.country)
+		.searchWeatherData(this.input.search)
 		.subscribe((result) => {
 			let weatherItem = new WeatherItem(
 				result.name, 
@@ -75,16 +83,19 @@ export class WeatherListComponent implements OnInit {
 
 			this.weatherApiService.addWeatherItem(weatherItem);
 			this.input = <IWeatherInput>{}
-
-
-			console.log(this.weatherApiService.getWeatherItems())
+			
+			console.log(this.weatherApiService.getWeatherItems());
+		}, 
+		// If error in server/api temporary navigate to error page
+		err => {
+			console.log(err)
 		});
 	}
 
-	removeCityCountry(value){
-		this.weatherApiService.clearWeatherItems(value);
-
-		console.log(this.weatherApiService.getWeatherItems())
+	// Remove city by array ID
+	removeCityCountry(index){
+		this.weatherApiService.clearWeatherItems(index);
+		console.log(this.weatherApiService.getWeatherItems());
 	}
 
 	ngOnDestroy(){
@@ -93,8 +104,6 @@ export class WeatherListComponent implements OnInit {
 
 }
 
-
 interface IWeatherInput{
-	city    : string,
-	country : string
+	search : string,
 }

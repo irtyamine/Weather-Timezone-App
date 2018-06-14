@@ -1,3 +1,13 @@
 td{
 	cursor: pointer;
 }
+
+.container-text {
+	position: absolute;
+	float: right !important;
+  	color: gray;
+  	z-index: 999;
+  	right: 12%;
+}
+
+

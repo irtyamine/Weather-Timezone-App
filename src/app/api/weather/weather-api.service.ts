@@ -13,6 +13,7 @@ const id = "985b1280f5e6b2a64f9e84ef27113358";
 })
 export class WeatherApiService {
 	WEATHER_ITEMS: WeatherItem[] = [];
+	public notFound: boolean     = false;
 
 	constructor(private http: Http, private router: Router) { }
 
@@ -27,9 +28,9 @@ export class WeatherApiService {
 	}
 
 	// Search weather data by city and country
-	searchWeatherData(city:string, country: string): Observable<any>{
+	searchWeatherData(search): Observable<any>{
 		return this.http
-		.get(`${endpoint}?q=${city},${country}&appid=${id}&units=metric`)
+		.get(`${endpoint}?q=${search}&appid=${id}&units=metric`)
 		.pipe(
 			map(res => res.json()),
 			catchError(this.handleError)
@@ -47,12 +48,13 @@ export class WeatherApiService {
     }
 
     // Remove selected weather item
-    clearWeatherItems(item) {
-        this.WEATHER_ITEMS.splice(this.WEATHER_ITEMS.indexOf(item), 1);
+    clearWeatherItems(index) {
+        this.WEATHER_ITEMS.splice(this.WEATHER_ITEMS.indexOf(index), 1);
     }
 
 	// error handler
 	private handleError(error:any, caught:any): any{
+		this.notFound = true;
 		console.log(error, caught)
 	}
 
