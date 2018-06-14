@@ -8,6 +8,7 @@ import { HomeRoutingModule } from './home/home.routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { environment } from '../environments/environment';
   imports: [
     HomeRoutingModule,
     SharedModule,
-    
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB59esQ_biLcdei-J9fMoJCf4MLoVu0eyo'
+    }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

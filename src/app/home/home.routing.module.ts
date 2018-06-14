@@ -3,7 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
 import { WeatherListComponent } from '../weather/weather-list/weather-list.component';
+import { WeatherMapComponent } from '../weather/weather-map/weather-map.component';
 import { HomeComponent } from './home.component';
+
+import { AgmCoreModule } from '@agm/core';
 
 const homeRoute: Routes = [
   	{ path: '', component: HomeComponent }
@@ -12,12 +15,14 @@ const homeRoute: Routes = [
 @NgModule({
   imports: [
     SharedModule,
+    AgmCoreModule,
   	RouterModule.forRoot(homeRoute)
   ],
   exports: [RouterModule],
   declarations: [
     HomeComponent,
-    WeatherListComponent
+    WeatherListComponent,
+    WeatherMapComponent
   ],
   providers: []
 })

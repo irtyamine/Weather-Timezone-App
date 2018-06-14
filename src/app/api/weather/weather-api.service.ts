@@ -5,15 +5,16 @@ import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { WeatherItem } from '../../weather/weather-list/weather-item';
 
-const endpoint = 'http://api.openweathermap.org/data/2.5/weather';
-const id = "985b1280f5e6b2a64f9e84ef27113358";
+const endpoint    = 'http://api.openweathermap.org/data/2.5/weather';
+const mapEndpoint = 'https://tile.openweathermap.org/map';
+const id          = "985b1280f5e6b2a64f9e84ef27113358";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherApiService {
 	WEATHER_ITEMS: WeatherItem[] = [];
-
+ 
 	constructor(private http: Http, private router: Router) { }
 
 	// Get weather data by geolocation

@@ -12,7 +12,7 @@ import { WeatherItem } from "./weather-item";
 export class WeatherListComponent implements OnInit {
 	private req : any;
 	items       : any;
-	notFound    : any;
+	notFound    : any = null;
 	input       : IWeatherInput;
 
 	constructor(private router:Router, 
