@@ -5,7 +5,7 @@ import { map, filter, switchMap, catchError } from 'rxjs/operators';
 import { WeatherItem } from '../../weather/weather-list/weather-item';
 import { WEATHER_ITEMS } from '../../weather/weather-list/mock-weather-item';
 
-const endpoint    = 'http://api.openweathermap.org/data/2.5/weather';
+const endpoint    = 'https://api.openweathermap.org/data/2.5/weather';
 const mapEndpoint = 'https://tile.openweathermap.org/map';
 const id          = "985b1280f5e6b2a64f9e84ef27113358";
 
