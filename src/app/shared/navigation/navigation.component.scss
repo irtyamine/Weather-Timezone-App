@@ -116,7 +116,9 @@
   -o-transform: rotate(-45deg) !important;
   transform: rotate(-45deg) !important;
   font-size: 18px !important;
-  padding-right: 10px;
+  padding-right: 14px;
+
+  padding-top: 5px;
   cursor: pointer;
 }
 
@@ -129,6 +131,53 @@
       -moz-transform: rotate(135deg) !important;
       -webkit-transform: rotate(135deg) !important;
       -o-transform: rotate(135deg) !important;
+      background: rgba(120, 88, 173,1) !important;
+  }
+}
+
+.btn-header-sm{
+  position: absolute;
+  top: 100%;
+  right: 2%;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
+  &:hover{
+    -o-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+}
+
+.btn-header-arrow-sm{
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  font-size: 18px !important;
+ 
+  margin-top: 5px;
+  padding-right: 12px;
+  padding-top: 8px;
+  cursor: pointer;
+}
+
+.btn-activity-sm{
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+    &:hover{
+      -moz-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
       background: rgba(120, 88, 173,1) !important;
   }
 }

@@ -12,23 +12,23 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				
+
 
 				<li class="nav-item">
 					<a class="nav-link  pt-3" routerLink="/"> Dashboard 
-					
+
 					</a>
 				</li>
 
 				<li class="nav-item">
 					<a class="nav-link  pt-3" routerLink="/"> About 
-					
+
 					</a>
 				</li>
 
 				<li class="nav-item">
 					<a class="nav-link  pt-3" href="#"> FAQ 
-					
+
 					</a>
 				</li>
 			</ul>
@@ -36,12 +36,12 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<span class="nav-link  pt-3"> {{currentDate | date: 'MMM d, y | h:mm:ss a'}} 
-					
+
 					</span>
 				</li>
 			</ul>
 		</div>
-		
+
 	</nav>
 </nav>
 
@@ -49,15 +49,22 @@
 
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container-fluid footer-background-gradient">
-  <div class="row">
-    <div class="col-lg-12 col-md-12 text-center bg-img py-5">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 text-center bg-img py-5">
 
-      <div class="container-text my-5 py-4">
-      	<h5>Check Weather and Timezone</h5>
-      	<h1 class="text-white container-text"><strong class="header-home">Welcome to Weatzene</strong></h1>
-      	<button class="btn text-white btn-activity btn-header bg-gradient"><span class="fa fa-chevron-circle-right btn-header-arrow"></span></button>
-      </div>
-    </div>
-  </div>
-  
+			<div class="container-text my-5 py-4">
+				<h5>Check Weather and Timezone</h5>
+				<h1 class="text-white container-text d-none d-sm-none d-md-block"><strong class="header-home">Welcome to Weatzene</strong></h1>
+				<h1 class="text-white container-text d-block d-sm-block d-md-none">Welcome to Weatzene</h1>
+				<a href="#main-section" class="btn btn-primary text-white btn-activity btn-header bg-gradient d-none d-sm-none d-md-block">
+					<span class="fa fa-chevron-circle-right btn-header-arrow"></span>
+				</a>
+
+				<a href="#main-section" class="btn btn-primary text-white btn-activity-sm btn-header-sm bg-gradient d-block d-sm-block d-md-none">
+					<span class="fa fa-chevron-circle-right btn-header-arrow-sm"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+
 </div>

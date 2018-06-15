@@ -51,7 +51,7 @@ export class WeatherProfileComponent implements OnInit {
 	}
 
 	onDelete(profile: WeatherProfileItem){
-
+		this.weatherProfileService.deleteProfile(profile);
 	}
 
 	ngOnDestroy(){
