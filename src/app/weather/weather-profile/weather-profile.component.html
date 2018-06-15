@@ -4,7 +4,10 @@
 	<table class="table table-condensed table-borderless table-hover">
 		<tbody>
 			<tr *ngFor="let item of profiles;">
+
 				<td (click)="onLoadSelectedProfile(item)">
+
+
 					<span>{{item.profileName}}</span> <br>
 					<small class="pt-2"><strong>Cities: </strong>
 						<span *ngFor="let city of item.address">
@@ -12,8 +15,9 @@
 						</span>
 					</small>
 				</td>
+				<span class="float-right btn btn-sm btn-danger"><small>x</small></span>
 			</tr>
 		</tbody>
 	</table>
 </div>
-<hr><button class="btn btn-sm btn-primary float-right mb-3 mr-2 btn-add-profile">Add Profile</button>
+

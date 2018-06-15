@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { WeatherProfileService } from '../api/weather/weather-profile.service';
 
 @Component({
 	selector: 'app-home',
@@ -7,10 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-	constructor() { }
+	constructor(private weatherProfileService: WeatherProfileService) { }
 
 	ngOnInit() {
 		
 	}
-
 }

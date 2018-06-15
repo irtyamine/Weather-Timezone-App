@@ -7,8 +7,6 @@ import { WeatherListComponent } from '../weather/weather-list/weather-list.compo
 import { WeatherMapComponent } from '../weather/weather-map/weather-map.component';
 import { WeatherProfileComponent } from '../weather/weather-profile/weather-profile.component';
 import { HomeComponent } from './home.component';
-
-
 import { AgmCoreModule } from '@agm/core';
 
 const homeRoute: Routes = [

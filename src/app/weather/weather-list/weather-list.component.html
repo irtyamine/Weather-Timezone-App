@@ -1,21 +1,55 @@
-<!-- Modal -->
+<!-- Add weather profile modal -->
+<div class="modal fade"  id="AddProfileModal" tabindex="-1" role="dialog" aria-labelledby="AddProfileModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-primary" id="AddProfileModalLabel">Add Weather Profile</h5>
+				<button type="button" #btnClose class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form (submit)="addProfile()">
+				<div class="modal-body">
+					<div class="form-group" >
+						<input type="name" [(ngModel)]="profileName" [ngModelOptions]="{standalone: true}" class="form-control">
+						<small>Profile Name</small>
+						<br><br>
+						<h6 class="text-warning">Listed Addresses: </h6>
+						<small>
+							<span *ngFor="let item of items" class="pt-2">
+								<p class="pl-4 mt-1">{{item.city}}, {{item.country}}</p>
+							</span>
+						</small>
+						<hr>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Save Profile</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Address not found modal -->
 <div class="modal" id="notFoundModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" [ngClass]="notFound=='true' ? 'fade show fade-show': 'fade'">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-danger" id="modalLabel">Address Not Found!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        The Address you are looking for does not exist.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Close</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-danger" id="modalLabel">Address Not Found!</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				The Address you are looking for does not exist.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="card py-5 px-3">
@@ -50,16 +84,22 @@
 					<tr *ngFor="let item of items; let i=index" [@fadeIn]>
 						<td  class="px-2">
 							<h5 class="text-primary">{{item.city}}, {{item.country}}</h5>
-							
+
 							<h4 class="text-info info-text-right float-right"> {{item.temperature}}°c</h4>
 							<h6 class="pt-2">{{item.weather}}</h6><br>
 						</td>
 						<td width="20px;"><span class="float-right btn btn-sm btn-danger rounded-circle" 
-							(click)="removeCityCountry(i)">x</span></td>
+							(click)="removeCityCountry(i)">x</span>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</section>
+
+	<div class="text-center" [hidden]="!saveProfile">
+		<hr><button class="btn btn-sm btn-primary mb-3 mr-2" data-toggle="modal" data-target="#AddProfileModal">Save Profile</button>
+	</div>
+
 </div>
 

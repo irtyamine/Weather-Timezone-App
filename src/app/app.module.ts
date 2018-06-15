@@ -8,6 +8,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 
+import { WeatherApiService } from './api/weather/weather-api.service';
+import { WeatherProfileService } from './api/weather/weather-profile.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { AgmCoreModule } from '@agm/core';
     }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [WeatherApiService, WeatherProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

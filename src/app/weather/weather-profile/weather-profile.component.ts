@@ -13,7 +13,6 @@ import { WeatherItem } from "../../weather/weather-list/weather-item";
 })
 export class WeatherProfileComponent implements OnInit {
 	profiles : WeatherProfileItem[];
-
 	private req: any;
 
 	constructor(private router:Router, 
@@ -22,11 +21,11 @@ export class WeatherProfileComponent implements OnInit {
 		private weatherProfileService: WeatherProfileService) { }
 
 	ngOnInit() {
-		this.profiles = this.weatherProfileService.getProfiles();
-
-		console.log(this.profiles);
+		// get list of profiles
+		this.profiles = this.weatherProfileService.getProfiles()
 	}
 
+	// Load selected profile to weather list
 	onLoadSelectedProfile(profile: WeatherProfileItem){
 		this.weatherApiService.clearAllWeatherItems();
 
@@ -49,8 +48,14 @@ export class WeatherProfileComponent implements OnInit {
 				console.log(err)
 			});
 		});
+	}
 
-		console.log(this.weatherApiService.getWeatherItems());
+	onDelete(profile: WeatherProfileItem){
+
+	}
+
+	ngOnDestroy(){
+		if(this.req) this.req.unsubscribe();
 	}
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WeatherApiService } from '../../api/weather/weather-api.service';
 import { WeatherProfileService } from '../../api/weather/weather-profile.service';
@@ -16,46 +16,52 @@ export class WeatherListComponent implements OnInit {
 	private req : any;
 	items       : any;
 	notFound    : any = null;
+	saveProfile : boolean = false;
 	input       : IWeatherInput;
+	profileName : string;
+
+	// for closing a modal programatically
+	@ViewChild('btnClose') btnClose : ElementRef;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
+		private weatherProfileService: WeatherProfileService,
 		private weatherApiService: WeatherApiService) {  this.input = <IWeatherInput>{} }
 
 	ngOnInit() {
-		this.getLocation();	
+		// Get your current location
+		if (navigator.geolocation) {
+		    navigator.geolocation.getCurrentPosition((
+		    //Set longitude and latitude
+		    position => {
+		    	this.subscribeToLocation(position);
+		    }), this.showGeolocationError);
+		} else { 
+		    console.log("Geolocation is not supported by this browser.");
+		}
+
 		this.items = this.weatherApiService.getWeatherItems();
 	}
 
-	// Get your current location
-	getLocation() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition((
-	        //Set longitude and latitude
-	        position => {
-	        	this.req = this.weatherApiService
-	        	.getCurrentWeatherByLocation(position.coords.latitude, position.coords.longitude)
-	        	.subscribe(result => {
-	        		const weatherItem = new WeatherItem(
-	        			result.name, 
-	        			result.sys.country, 
-	        			result.main.temp, 
-	        			result.weather[0].main + ', ' + result.weather[0].description
-	        		);
+	// subscribe geolocation
+	subscribeToLocation(position){
+    	this.req = this.weatherApiService
+	    	.getCurrentWeatherByLocation(position.coords.latitude, position.coords.longitude)
+	    	.subscribe(result => {
+	    		const weatherItem = new WeatherItem(
+	    			result.name, 
+	    			result.sys.country, 
+	    			result.main.temp, 
+	    			result.weather[0].main + ', ' + result.weather[0].description
+	    		);
 
-	        		//initial item
-	        		this.weatherApiService.addWeatherItem(weatherItem);
-
-	        		localStorage.setItem('weatherList', JSON.stringify(weatherItem));
-	        	},
-			  	// If error in server/api temporary navigate to error page
-				err => {
-					console.log(err);
-				});
-	        }), this.showGeolocationError);
-	    } else { 
-	        console.log("Geolocation is not supported by this browser.");
-	    }
+	    		//initial item
+	    		this.weatherApiService.addWeatherItem(weatherItem);
+    	},
+	  	// If error in server/api temporary navigate to error page
+		err => {
+			console.log(err);
+		});
 	}
 
 	// Geolocation error
@@ -73,7 +79,6 @@ export class WeatherListComponent implements OnInit {
 	    }
 	}
 
-
 	// Add weather data by city and country
 	addCityCountry(){
 		this.req = this.weatherApiService
@@ -89,8 +94,7 @@ export class WeatherListComponent implements OnInit {
 				this.weatherApiService.addWeatherItem(weatherItem);
 				this.input = <IWeatherInput>{}
 				this.notFound = sessionStorage.getItem('notFound');
-				console.log(this.items);
-
+				this.saveProfile = true;
 			}, 
 		// If error in server/api temporary navigate to error page
 		err => {
@@ -99,13 +103,18 @@ export class WeatherListComponent implements OnInit {
 		});
 	}
 
-	// Remove city by array ID
-	removeCityCountry(index){
-		this.weatherApiService.clearWeatherItem(index);
-		console.log(this.weatherApiService.getWeatherItems());
+	addProfile(){
+		let address = this.weatherApiService.getWeatherItems().map(item => `${item.city}, ${item.country}`)
+		this.weatherProfileService.saveNewProfile(address, this.profileName);
+		this.btnClose.nativeElement.click();
 	}
 
-	closeModal(){
+	// Remove city by array ID
+	removeCityCountry(index): void{
+		this.weatherApiService.clearWeatherItem(index);
+	}
+
+	closeModal(): void{
 		this.notFound = null;
 		sessionStorage.removeItem('notFound')
 	}
