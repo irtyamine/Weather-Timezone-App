@@ -1,13 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WeatherApiService } from '../../api/weather/weather-api.service';
+import { WeatherProfileService } from '../../api/weather/weather-profile.service';
 import { WeatherItem } from "./weather-item";
+import { fadeIn } from '../../animations/fade-in';
 
 @Component({
 	selector: 'weather-list',
+	animations: [fadeIn],
 	templateUrl: './weather-list.component.html',
 	styleUrls: ['./weather-list.component.scss'],
-	providers: [WeatherApiService]
+	providers: [WeatherApiService, WeatherProfileService]
 })
 export class WeatherListComponent implements OnInit {
 	private req : any;
@@ -21,6 +24,7 @@ export class WeatherListComponent implements OnInit {
 
 	ngOnInit() {
 		this.getLocation();	
+		this.items = this.weatherApiService.getWeatherItems();
 	}
 
 	// Get your current location
@@ -32,7 +36,7 @@ export class WeatherListComponent implements OnInit {
 	        	this.req = this.weatherApiService
 	        	.getCurrentWeatherByLocation(position.coords.latitude, position.coords.longitude)
 	        	.subscribe(result => {
-	        		let weatherItem = new WeatherItem(
+	        		const weatherItem = new WeatherItem(
 	        			result.name, 
 	        			result.sys.country, 
 	        			result.main.temp, 
@@ -41,7 +45,8 @@ export class WeatherListComponent implements OnInit {
 
 	        		//initial item
 	        		this.weatherApiService.addWeatherItem(weatherItem);
-	        		this.items = this.weatherApiService.getWeatherItems();
+
+	        		localStorage.setItem('weatherList', JSON.stringify(weatherItem));
 	        	},
 			  	// If error in server/api temporary navigate to error page
 				err => {
@@ -72,32 +77,31 @@ export class WeatherListComponent implements OnInit {
 	// Add weather data by city and country
 	addCityCountry(){
 		this.req = this.weatherApiService
-		.searchWeatherData(this.input.search)
-		.subscribe((result) => {
-			let weatherItem = new WeatherItem(
-				result.name, 
-				result.sys.country, 
-				result.main.temp, 
-				result.weather[0].main + ', ' + result.weather[0].description
-			);
+			.searchWeatherData(this.input.search)
+			.subscribe((result) => {
+				let weatherItem = new WeatherItem(
+					result.name, 
+					result.sys.country, 
+					result.main.temp, 
+					result.weather[0].main + ', ' + result.weather[0].description
+				);
 
-			this.weatherApiService.addWeatherItem(weatherItem);
-			this.input = <IWeatherInput>{}
-			this.notFound = sessionStorage.getItem('notFound');
-			console.log(this.weatherApiService.getWeatherItems());
-		}, 
+				this.weatherApiService.addWeatherItem(weatherItem);
+				this.input = <IWeatherInput>{}
+				this.notFound = sessionStorage.getItem('notFound');
+				console.log(this.items);
+
+			}, 
 		// If error in server/api temporary navigate to error page
 		err => {
 			this.notFound = sessionStorage.getItem('notFound');
 			console.log(err)
 		});
-
-
 	}
 
 	// Remove city by array ID
 	removeCityCountry(index){
-		this.weatherApiService.clearWeatherItems(index);
+		this.weatherApiService.clearWeatherItem(index);
 		console.log(this.weatherApiService.getWeatherItems());
 	}
 

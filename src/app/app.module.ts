@@ -2,27 +2,24 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { WeatherProfileComponent } from './shared/weather-profile/weather-profile.component';
 import { HomeRoutingModule } from './home/home.routing.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    FooterComponent,
-    SidebarComponent,
-    WeatherProfileComponent
+    FooterComponent
   ],
   imports: [
     HomeRoutingModule,
     SharedModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyB59esQ_biLcdei-J9fMoJCf4MLoVu0eyo'
+      apiKey: 'AIzaSyDmYO1nfXEKwBDkGBSOr-bpqyKvOFRR2N4'
     }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],

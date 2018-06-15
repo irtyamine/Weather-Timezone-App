@@ -1,0 +1,19 @@
+
+
+<div class="table-responsive"  class="collapse show"  id="weatherCollapse">
+	<table class="table table-condensed table-borderless table-hover">
+		<tbody>
+			<tr *ngFor="let item of profiles;">
+				<td (click)="onLoadSelectedProfile(item)">
+					<span>{{item.profileName}}</span> <br>
+					<small class="pt-2"><strong>Cities: </strong>
+						<span *ngFor="let city of item.address">
+							{{city}}. 
+						</span>
+					</small>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<hr><button class="btn btn-sm btn-primary float-right mb-3 mr-2 btn-add-profile">Add Profile</button>

@@ -2,8 +2,8 @@ import { Http } from "@angular/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject, from, of, range, empty } from 'rxjs';
 import { map, filter, switchMap, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { WeatherItem } from '../../weather/weather-list/weather-item';
+import { WEATHER_ITEMS } from '../../weather/weather-list/mock-weather-item';
 
 const endpoint    = 'http://api.openweathermap.org/data/2.5/weather';
 const mapEndpoint = 'https://tile.openweathermap.org/map';
@@ -13,9 +13,8 @@ const id          = "985b1280f5e6b2a64f9e84ef27113358";
   providedIn: 'root'
 })
 export class WeatherApiService {
-	WEATHER_ITEMS: WeatherItem[] = [];
  
-	constructor(private http: Http, private router: Router) { }
+	constructor(private http: Http) { }
 
 	// Get weather data by geolocation
 	getCurrentWeatherByLocation(lat:number, lon: number): Observable<any>{
@@ -42,17 +41,22 @@ export class WeatherApiService {
 
 	// Get list of weather items
 	getWeatherItems() {
-        return this.WEATHER_ITEMS;
+        return WEATHER_ITEMS;
     }
 
     // Add weather Item
     addWeatherItem(weatherItem: WeatherItem) {
-        this.WEATHER_ITEMS.push(weatherItem);
+        WEATHER_ITEMS.push(weatherItem);
     }
 
     // Remove selected weather item
-    clearWeatherItems(index) {
-        this.WEATHER_ITEMS.splice(this.WEATHER_ITEMS.indexOf(index), 1);
+    clearWeatherItem(index) {
+        WEATHER_ITEMS.splice(WEATHER_ITEMS.indexOf(index), 1);
+    }
+
+    // Remove all weather item
+    clearAllWeatherItems(){
+    	WEATHER_ITEMS.splice(0);
     }
 
 	// error handler
