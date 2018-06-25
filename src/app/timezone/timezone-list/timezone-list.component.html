@@ -3,12 +3,12 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title text-primary" id="AddProfileModalLabel">Add Weather Profile</h5>
+				<h5 class="modal-title text-primary" id="AddProfileModalLabel">Add Timezone Profile</h5>
 				<button type="button" #btnClose class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form (submit)="addProfile()">
+			<form>
 				<div class="modal-body">
 					<div class="form-group" >
 						<input type="name" [(ngModel)]="profileName" [ngModelOptions]="{standalone: true}" class="form-control">
@@ -90,7 +90,7 @@
 							<h6 class="pt-2">{{item.weather}}</h6><br>
 						</td>
 						<td width="20px;"><span class="float-right btn btn-sm btn-danger rounded-circle" 
-							(click)="removeCityCountry(i)">x</span>
+							>x</span>
 						</td>
 					</tr>
 				</tbody>

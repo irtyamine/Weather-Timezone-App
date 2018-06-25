@@ -32,6 +32,15 @@ export class TimezoneListComponent implements OnInit {
 		});
 	}
 
+	closeModal(): void{
+		this.notFound = null;
+		sessionStorage.removeItem('notFound')
+	}
+
+	ngOnDestroy(){
+		if(this.req) this.req.unsubscribe();
+	}
+
 }
 
 interface ITimezoneInput{
