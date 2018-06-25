@@ -31,7 +31,7 @@ export class WeatherProfileComponent implements OnInit {
 
 		let addressArray = profile.address;
 
-		addressArray.map((address) =>{
+		addressArray.sort().map((address) =>{
 			this.req = this.weatherApiService.searchWeatherData(address)
 			.subscribe(result => {
 				const weatherItem = new WeatherItem(

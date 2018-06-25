@@ -102,7 +102,7 @@ export class TimezoneListComponent implements OnInit {
 			} else {
 				return item.country;
 			}
-		})
+		});
 		this.timezoneProfileService.saveNewProfile(address, this.profileName);
 		this.btnClose.nativeElement.click();
 	}
