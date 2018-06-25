@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { WeatherApiService } from '../../api/weather/weather-api.service';
 import { WeatherProfileService } from '../../api/weather/weather-profile.service';
 import { WeatherItem } from "./weather-item";
+import { WEATHER_ITEMS } from '../../weather/weather-list/mock-weather-item';
 import { fadeIn } from '../../animations/fade-in';
 
 @Component({
@@ -15,6 +16,8 @@ import { fadeIn } from '../../animations/fade-in';
 export class WeatherListComponent implements OnInit {
 	private req : any;
 	items       : any;
+	lat         : number;
+    lng         : number;
 	notFound    : any = null;
 	saveProfile : boolean = false;
 	input       : IWeatherInput;
@@ -29,24 +32,29 @@ export class WeatherListComponent implements OnInit {
 		private weatherApiService: WeatherApiService) {  this.input = <IWeatherInput>{} }
 
 	ngOnInit() {
+		this.getLocation();
+		this.items = this.weatherApiService.getWeatherItems();
+	}
+
+	getLocation(){
 		// Get your current location
 		if (navigator.geolocation) {
 		    navigator.geolocation.getCurrentPosition((
 		    //Set longitude and latitude
 		    position => {
-		    	this.subscribeToLocation(position);
+		    	this.lat = position.coords.latitude;
+		    	this.lng = position.coords.longitude;
+		    	this.subscribeToLocation(this.lat, this.lng)
 		    }), this.showGeolocationError);
 		} else { 
 		    console.log("Geolocation is not supported by this browser.");
 		}
-
-		this.items = this.weatherApiService.getWeatherItems();
 	}
 
 	// subscribe geolocation
-	subscribeToLocation(position){
+	subscribeToLocation(latitude: number, longitude: number){
     	this.req = this.weatherApiService
-	    	.getCurrentWeatherByLocation(position.coords.latitude, position.coords.longitude)
+	    	.getCurrentWeatherByLocation(latitude, longitude)
 	    	.subscribe(result => {
 	    		const weatherItem = new WeatherItem(
 	    			result.name, 
@@ -120,6 +128,7 @@ export class WeatherListComponent implements OnInit {
 	}
 
 	ngOnDestroy(){
+		WEATHER_ITEMS.splice(WEATHER_ITEMS.indexOf(this.items), 1)
 		if(this.req) this.req.unsubscribe();
 	}
 

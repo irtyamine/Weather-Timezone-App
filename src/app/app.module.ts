@@ -29,3 +29,4 @@ import { WeatherProfileService } from './api/weather/weather-profile.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

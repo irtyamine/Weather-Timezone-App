@@ -6,11 +6,16 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { WeatherListComponent } from '../weather/weather-list/weather-list.component';
 import { WeatherMapComponent } from '../weather/weather-map/weather-map.component';
 import { WeatherProfileComponent } from '../weather/weather-profile/weather-profile.component';
+import { TimezoneListComponent } from '../timezone/timezone-list/timezone-list.component';
+import { HomeComponent as TimezoneHome } from '../timezone/home/home.component';
+import { SidebarComponent as TimezoneSidebar } from '../timezone/home/sidebar/sidebar.component';
 import { HomeComponent } from './home.component';
 import { AgmCoreModule } from '@agm/core';
 
 const homeRoute: Routes = [
-  	{ path: '', component: HomeComponent }
+  	{ path: '', component: HomeComponent },
+    { path: 'weather', component: HomeComponent },
+    { path: 'timezone', component: TimezoneHome }
 ];
 
 @NgModule({
@@ -22,6 +27,9 @@ const homeRoute: Routes = [
   exports: [RouterModule],
   declarations: [
     HomeComponent,
+    TimezoneHome,
+    TimezoneSidebar,
+    TimezoneListComponent,
     WeatherListComponent,
     WeatherMapComponent,
     WeatherProfileComponent,

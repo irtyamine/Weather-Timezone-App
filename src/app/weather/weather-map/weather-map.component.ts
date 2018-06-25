@@ -10,8 +10,8 @@ import { WeatherApiService } from '../../api/weather/weather-api.service';
 })
 export class WeatherMapComponent implements OnInit {
 	private req : any;
-		lat: number;
-        lng: number;
+	lat: number = 40.730610;
+    lng: number =- 73.935242;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
