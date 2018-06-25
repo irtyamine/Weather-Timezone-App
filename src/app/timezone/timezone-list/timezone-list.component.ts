@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { fadeIn } from '../../animations/fade-in';
+import { TimezoneApiService } from '../../api/timezone/timezone-api.service';
 
 @Component({
 	selector: 'timezone-list',
@@ -18,9 +19,17 @@ export class TimezoneListComponent implements OnInit {
 	profileName : string;
 
 	constructor(private router:Router, 
-		private activatedRoute: ActivatedRoute) {  this.input = <ITimezoneInput>{} }
+		private activatedRoute: ActivatedRoute,
+		private timezoneApiService: TimezoneApiService) {  this.input = <ITimezoneInput>{} }
 
 	ngOnInit() {
+		this.req = this.timezoneApiService.getCurrentTimeByLocation().subscribe(result => {
+			console.log(result);
+		},
+	  	// If error in server/api temporary navigate to error page
+		err => {
+			console.log(err);
+		});
 	}
 
 }
