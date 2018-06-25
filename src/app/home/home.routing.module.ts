@@ -7,6 +7,7 @@ import { WeatherListComponent } from '../weather/weather-list/weather-list.compo
 import { WeatherMapComponent } from '../weather/weather-map/weather-map.component';
 import { WeatherProfileComponent } from '../weather/weather-profile/weather-profile.component';
 import { TimezoneListComponent } from '../timezone/timezone-list/timezone-list.component';
+import { TimezoneProfileComponent } from '../timezone/timezone-profile/timezone-profile.component';
 import { HomeComponent as TimezoneHome } from '../timezone/home/home.component';
 import { SidebarComponent as TimezoneSidebar } from '../timezone/home/sidebar/sidebar.component';
 import { HomeComponent } from './home.component';
@@ -30,6 +31,7 @@ const homeRoute: Routes = [
     TimezoneHome,
     TimezoneSidebar,
     TimezoneListComponent,
+    TimezoneProfileComponent,
     WeatherListComponent,
     WeatherMapComponent,
     WeatherProfileComponent,

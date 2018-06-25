@@ -8,7 +8,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form>
+			<form (submit)="addProfile()">
 				<div class="modal-body">
 					<div class="form-group" >
 						<input type="name" [(ngModel)]="profileName" [ngModelOptions]="{standalone: true}" class="form-control">

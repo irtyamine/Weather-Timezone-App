@@ -122,6 +122,7 @@ export class WeatherListComponent implements OnInit {
 		this.weatherApiService.clearWeatherItem(index);
 	}
 
+	// Close modal not found
 	closeModal(): void{
 		this.notFound = null;
 		sessionStorage.removeItem('notFound')

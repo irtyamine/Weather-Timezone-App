@@ -47,13 +47,13 @@ export class TimezoneApiService {
         TIMEZONE_ITEMS.push(timezoneItem);
     }
 
-     // Remove selected weather item
-    clearWeatherItem(index) {
+     // Remove selected timezone item
+    clearTimezoneItem(index) {
         TIMEZONE_ITEMS.splice(TIMEZONE_ITEMS.indexOf(index), 1);
     }
 
-    // Remove all weather item
-    clearAllWeatherItems(){
+    // Remove all timezone item
+    clearAllTimezoneItems(){
     	TIMEZONE_ITEMS.splice(0);
     }
 

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { Router, ActivatedRoute } from '@angular/router';
 import { fadeIn } from '../../animations/fade-in';
 import { TimezoneApiService } from '../../api/timezone/timezone-api.service';
+import { TimezoneProfileService } from '../../api/timezone/timezone-profile.service';
 import { TimezoneItem } from './timezone-item';
 import { TIMEZONE_ITEMS } from './mock-timezone-item';
 
@@ -22,9 +23,13 @@ export class TimezoneListComponent implements OnInit {
 	input       : ITimezoneInput;
 	profileName : string;
 
+	// for closing a modal programatically
+	@ViewChild('btnClose') btnClose : ElementRef;
+
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
-		private timezoneApiService: TimezoneApiService) {  this.input = <ITimezoneInput>{} }
+		private timezoneApiService: TimezoneApiService,
+		private timezoneProfileService: TimezoneProfileService) {  this.input = <ITimezoneInput>{} }
 
 	ngOnInit() {
 		this.subscribeToLocation();
@@ -55,7 +60,7 @@ export class TimezoneListComponent implements OnInit {
 		});
 	}
 
-	// Add weather data by city and country
+	// Add timezone data by city and country
 	addCityCountry(){
 		this.req = this.timezoneApiService
 			.searchTimezoneData(this.input.search)
@@ -90,11 +95,24 @@ export class TimezoneListComponent implements OnInit {
 		});
 	}
 
-	// Remove city by array ID
-	removeCityCountry(index): void{
-		this.timezoneApiService.clearWeatherItem(index);
+	addProfile(){
+		let address = this.timezoneApiService.getTimezoneItems().map(item => {
+			if(item.city){
+				return `${item.city}, ${item.country}`;
+			} else {
+				return item.country;
+			}
+		})
+		this.timezoneProfileService.saveNewProfile(address, this.profileName);
+		this.btnClose.nativeElement.click();
 	}
 
+	// Remove city by array ID
+	removeCityCountry(index): void{
+		this.timezoneApiService.clearTimezoneItem(index);
+	}
+
+	// Close modal not found
 	closeModal(): void{
 		this.notFound = null;
 		sessionStorage.removeItem('notFound')

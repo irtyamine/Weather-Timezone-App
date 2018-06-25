@@ -9,6 +9,8 @@ import { WEATHER_PROFILES } from '../../weather/weather-profile/mock-weather-pro
   	providedIn: 'root'
 })
 export class WeatherProfileService {
+    constructor() { }
+
   	saveNewProfile(address: string[], profileName: string): Observable<any>{
   		const profile = new WeatherProfileItem(profileName, address);
   		WEATHER_PROFILES.push(profile);
