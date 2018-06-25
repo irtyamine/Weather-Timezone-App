@@ -2,10 +2,10 @@ import { Http } from "@angular/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject, from, of, range, empty } from 'rxjs';
 import { map, filter, switchMap, catchError } from 'rxjs/operators';
-import { WeatherItem } from '../../weather/weather-list/weather-item';
-import { WEATHER_ITEMS } from '../../weather/weather-list/mock-weather-item';
+import { TimezoneItem } from '../../timezone/timezone-list/timezone-item';
+import { TIMEZONE_ITEMS } from '../../timezone/timezone-list/mock-timezone-item';
 
-const endpoint = 'https://maps.googleapis.com/maps/api/timezone/json?location=38.908133,-77.047119&timestamp=1458000000&key=AIzaSyDmYO1nfXEKwBDkGBSOr-bpqyKvOFRR2N4';
+const endpoint = 'https://timezoneapi.io/api';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,15 +14,48 @@ export class TimezoneApiService {
 
 	constructor(private http: Http) { }
 
-	// Get weather data by geolocation
+	// Get timezone data by ipaddress
 	getCurrentTimeByLocation(): Observable<any>{
 		return this.http
-		.get(`${endpoint}`)
+		.get(`${endpoint}/ip`)
 		.pipe(
 			map(res => res.json()),
 			catchError(this.handleError)
 		);
 	}
+
+	// Search timezone data by city and country
+	searchTimezoneData(search): Observable<any>{
+		return this.http
+		.get(`${endpoint}/address/?${search}`)
+		.pipe(
+			map(res => { 
+				sessionStorage.setItem('notFound', 'false');
+				return res.json();
+			}),
+			catchError(this.handleError)
+		);
+	}
+
+	// Get list of timezone items
+	getTimezoneItems() {
+        return TIMEZONE_ITEMS;
+    }
+
+    // Add timezone Item
+    addTimezoneItem(timezoneItem: TimezoneItem) {
+        TIMEZONE_ITEMS.push(timezoneItem);
+    }
+
+     // Remove selected weather item
+    clearWeatherItem(index) {
+        TIMEZONE_ITEMS.splice(TIMEZONE_ITEMS.indexOf(index), 1);
+    }
+
+    // Remove all weather item
+    clearAllWeatherItems(){
+    	TIMEZONE_ITEMS.splice(0);
+    }
 
 	// error handler
 	private handleError(error:any, caught:any): any{

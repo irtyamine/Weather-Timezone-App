@@ -1,4 +1,4 @@
-<!-- Add weather profile modal -->
+<!-- Add timezone profile modal -->
 <div class="modal fade"  id="AddProfileModal" tabindex="-1" role="dialog" aria-labelledby="AddProfileModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -30,7 +30,7 @@
 			</form>
 		</div>
 	</div>
-</div>
+</div> 
 
 <!-- Address not found modal -->
 <div class="modal" id="notFoundModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" [ngClass]="notFound=='true' ? 'fade show fade-show': 'fade'">
@@ -53,10 +53,10 @@
 </div>
 
 <div class="card py-5 px-3">
-	<section id="search-weather">
+	<section id="search-timezone">
 		<div class="d-none d-sm-none d-md-block">
 			<h4 class="float-left text-muted">Timezone Data</h4>
-			<form class="form-inline float-right">
+			<form class="form-inline float-right" (submit)="addCityCountry()">
 				<div class="form-group">
 					<input type="email" class="form-control" [(ngModel)]="input.search" [ngModelOptions]="{standalone: true}" placeholder="City, Country">
 				</div>
@@ -67,7 +67,7 @@
 		</div>	
 
 		<div class="d-block d-sm-block d-md-none">
-			<form class="form">
+			<form class="form" (submit)="addCityCountry()">
 				<div class="form-group">
 					<input type="email" class="form-control" [(ngModel)]="input.search" [ngModelOptions]="{standalone: true}" placeholder="City, Country">
 					<small class="container-text">i.e. London, Uk | Manila, PH | New York, USA</small>
@@ -78,19 +78,18 @@
 		</div>	
 	</section>
 
-	<section id="weather-list" class="container-fluid mt-5">
+	<!---->
+	<section id="timezone-list" class="container-fluid mt-5">
 		<div class="table-responsive">
 			<table class="table table-condensed table-borderless table-hover">
 				<tbody>
 					<tr *ngFor="let item of items; let i=index" [@fadeIn]>
 						<td  class="px-2">
-							<h5 class="text-primary">{{item.city}}, {{item.country}}</h5>
-
-							<h4 class="text-info info-text-right float-right"> {{item.temperature}}°c</h4>
-							<h6 class="pt-2">{{item.weather}}</h6><br>
+							<h5 class="text-primary">{{item.timezone_id}} ({{item.offset_tzab}})</h5>
+							<h4 class="text-info info-text-right float-right">GMT {{item.offset_gmt}}</h4>
+							<h6 class="pt-2">{{item.day_full}}: {{item.date}}{{item.hour}}</h6><br>
 						</td>
-						<td width="20px;"><span class="float-right btn btn-sm btn-danger rounded-circle" 
-							>x</span>
+						<td width="20px;"><span class="float-right btn btn-sm btn-danger rounded-circle" (click)="removeCityCountry(i)">x</span>
 						</td>
 					</tr>
 				</tbody>
@@ -101,6 +100,6 @@
 	<div class="text-center" [hidden]="!saveProfile">
 		<hr><button class="btn btn-sm btn-primary mb-3 mr-2" data-toggle="modal" data-target="#AddProfileModal">Save Profile</button>
 	</div>
-
+	
 </div>
 
