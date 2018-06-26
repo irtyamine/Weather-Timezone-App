@@ -10,11 +10,13 @@ import { TimezoneListComponent } from '../timezone/timezone-list/timezone-list.c
 import { TimezoneProfileComponent } from '../timezone/timezone-profile/timezone-profile.component';
 import { HomeComponent as TimezoneHome } from '../timezone/home/home.component';
 import { SidebarComponent as TimezoneSidebar } from '../timezone/home/sidebar/sidebar.component';
+import { AboutComponent } from '../about/about.component';
 import { HomeComponent } from './home.component';
 import { AgmCoreModule } from '@agm/core';
 
 const homeRoute: Routes = [
   	{ path: '', component: HomeComponent },
+    { path: 'about', component: AboutComponent },
     { path: 'weather', component: HomeComponent },
     { path: 'timezone', component: TimezoneHome }
 ];
@@ -27,6 +29,7 @@ const homeRoute: Routes = [
   ],
   exports: [RouterModule],
   declarations: [
+    AboutComponent,
     HomeComponent,
     TimezoneHome,
     TimezoneSidebar,

@@ -14,17 +14,7 @@ export class NavigationComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.frameZone = Array.from(document.querySelectorAll('a[href^="#"]'));
-
-		this.frameZone.forEach(anchor => {
-			anchor.addEventListener('click', function (e) {
-				e.preventDefault();
-
-				document.querySelector(this.getAttribute('href')).scrollIntoView({
-					behavior: 'smooth'
-				});
-			});
-		});
+		
 	}
 
 

@@ -10,7 +10,7 @@ import { TIMEZONE_ITEMS } from './mock-timezone-item';
 	selector: 'timezone-list',
 	animations: [fadeIn],
 	templateUrl: './timezone-list.component.html',
-	styleUrls: ['./timezone-list.component.css'],
+	styleUrls: ['./timezone-list.component.scss'],
 	providers: [TimezoneApiService]
 })
 export class TimezoneListComponent implements OnInit {
