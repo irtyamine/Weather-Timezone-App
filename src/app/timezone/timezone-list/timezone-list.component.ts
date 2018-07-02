@@ -11,7 +11,7 @@ import { TIMEZONE_ITEMS } from './mock-timezone-item';
 	animations: [fadeIn],
 	templateUrl: './timezone-list.component.html',
 	styleUrls: ['./timezone-list.component.scss'],
-	providers: [TimezoneApiService]
+	providers: []
 })
 export class TimezoneListComponent implements OnInit {
 	private req : any;
@@ -65,7 +65,6 @@ export class TimezoneListComponent implements OnInit {
 		this.req = this.timezoneApiService
 			.searchTimezoneData(this.input.search)
 			.subscribe((result) => {
-				console.log(result)
 				if(result.data.addresses.length !== 0){
 					const timezoneItem = new TimezoneItem(
 						result.data.addresses[0].city,

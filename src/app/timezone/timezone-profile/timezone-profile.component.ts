@@ -9,7 +9,7 @@ import { TimezoneItem } from "../../timezone/timezone-list/timezone-item";
 	selector: 'timezone-profile',
 	templateUrl: './timezone-profile.component.html',
 	styleUrls: ['./timezone-profile.component.scss'],
-	providers: [TimezoneProfileService, TimezoneApiService]
+	providers: []
 })
 export class TimezoneProfileComponent implements OnInit {
 	profiles : TimezoneProfileItem[];

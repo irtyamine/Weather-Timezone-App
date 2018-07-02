@@ -6,7 +6,7 @@ import { WeatherApiService } from '../../api/weather/weather-api.service';
 	selector: 'weather-map',
 	templateUrl: './weather-map.component.html',
 	styleUrls: ['./weather-map.component.scss'],
-	providers: [WeatherApiService]
+	providers: []
 })
 export class WeatherMapComponent implements OnInit {
 	private req : any;

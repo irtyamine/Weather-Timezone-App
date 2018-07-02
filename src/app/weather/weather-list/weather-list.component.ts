@@ -11,7 +11,7 @@ import { fadeIn } from '../../animations/fade-in';
 	animations: [fadeIn],
 	templateUrl: './weather-list.component.html',
 	styleUrls: ['./weather-list.component.scss'],
-	providers: [WeatherApiService, WeatherProfileService]
+	providers: []
 })
 export class WeatherListComponent implements OnInit {
 	private req : any;

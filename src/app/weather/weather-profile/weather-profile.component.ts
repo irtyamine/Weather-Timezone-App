@@ -9,7 +9,7 @@ import { WeatherItem } from "../../weather/weather-list/weather-item";
 	selector: 'weather-profile',
 	templateUrl: './weather-profile.component.html',
 	styleUrls: ['./weather-profile.component.scss'],
-	providers: [WeatherProfileService, WeatherApiService]
+	providers: []
 })
 export class WeatherProfileComponent implements OnInit {
 	profiles : WeatherProfileItem[];
