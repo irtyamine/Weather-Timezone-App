@@ -5,6 +5,7 @@ import { TimezoneApiService } from '../../api/timezone/timezone-api.service';
 import { TimezoneProfileService } from '../../api/timezone/timezone-profile.service';
 import { TimezoneItem } from './timezone-item';
 import { TIMEZONE_ITEMS } from './mock-timezone-item';
+import { Observable, interval, pipe, timer } from 'rxjs';
 
 @Component({
 	selector: 'timezone-list',
@@ -33,7 +34,18 @@ export class TimezoneListComponent implements OnInit {
 
 	ngOnInit() {
 		this.subscribeToLocation();
+		this.getCurrentTimeByLocation();
 		this.items = this.timezoneApiService.getTimezoneItems();
+	}
+
+	// reload current time
+	getCurrentTimeByLocation(){
+		let refreshTime = timer(60000, 60000);
+
+		refreshTime.subscribe(() => {
+			TIMEZONE_ITEMS.splice(TIMEZONE_ITEMS.indexOf(this.items), 1)
+			this.subscribeToLocation();
+		});
 	}
 
 	// get timezone by ip address

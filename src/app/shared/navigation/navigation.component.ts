@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { Observable, interval, pipe, timer } from 'rxjs';
 
 @Component({
 	selector: 'app-navigation',
@@ -10,12 +11,19 @@ export class NavigationComponent implements OnInit {
 	frameZone: any;
 
 	constructor(public el: ElementRef) {
-		this.currentDate = new Date();
 	}
 
 	ngOnInit() {
-		
+		this.getCurrentTime();
 	}
 
+	// reload current time
+	getCurrentTime(){
+		let refreshTime = timer(1000, 1000);
+
+		refreshTime.subscribe(() => {
+			this.currentDate = new Date();
+		});
+	}
 
 }
