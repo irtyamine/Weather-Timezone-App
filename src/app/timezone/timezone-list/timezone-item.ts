@@ -3,6 +3,7 @@ export class TimezoneItem {
     	public city: string,
     	public country: string, 
         public hour: string,
+        public second: string,
     	public date: string,
         public day_full: string,
         public offset_tzab: string,
@@ -11,6 +12,7 @@ export class TimezoneItem {
 	    	this.city        = city;
 	    	this.country     = country;
             this.hour        = hour;
+            this.second      = second;
 	    	this.date        = date;
             this.day_full    = day_full;
             this.offset_tzab = offset_tzab;

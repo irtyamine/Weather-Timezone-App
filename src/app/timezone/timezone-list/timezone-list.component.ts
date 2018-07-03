@@ -5,7 +5,7 @@ import { TimezoneApiService } from '../../api/timezone/timezone-api.service';
 import { TimezoneProfileService } from '../../api/timezone/timezone-profile.service';
 import { TimezoneItem } from './timezone-item';
 import { TIMEZONE_ITEMS } from './mock-timezone-item';
-import { Observable, interval, pipe, timer } from 'rxjs';
+import { Observable, interval, pipe, timer, Subscription } from 'rxjs';
 
 @Component({
 	selector: 'timezone-list',
@@ -15,7 +15,7 @@ import { Observable, interval, pipe, timer } from 'rxjs';
 	providers: []
 })
 export class TimezoneListComponent implements OnInit {
-	private req : any;
+	private req : Subscription;
 	items       : any;
 	lat         : number;
 	lng         : number;
@@ -30,7 +30,7 @@ export class TimezoneListComponent implements OnInit {
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
 		private timezoneApiService: TimezoneApiService,
-		private timezoneProfileService: TimezoneProfileService) {  this.input = <ITimezoneInput>{} }
+		private timezoneProfileService: TimezoneProfileService) { this.input = <ITimezoneInput>{} }
 
 	ngOnInit() {
 		this.subscribeToLocation();
@@ -57,12 +57,15 @@ export class TimezoneListComponent implements OnInit {
 				result.data.country,
 				`${result.data.datetime.hour_12_wolz}:${result.data.datetime.minutes} 
 				${result.data.datetime.hour_am_pm}`,
+				result.data.datetime.seconds,
 				result.data.datetime.date,
     			result.data.datetime.day_full,
     			result.data.datetime.offset_tzab,
     			result.data.datetime.offset_gmt,
     			result.data.datetime.offset_tzid
     		);
+
+			console.log(result)
 
     		this.timezoneApiService.addTimezoneItem(timezoneItem);
 		},
@@ -83,6 +86,7 @@ export class TimezoneListComponent implements OnInit {
 						result.data.addresses[0].country,
 						`${result.data.addresses[0].datetime.hour_12_wolz}:${result.data.addresses[0].datetime.minutes} 
 						${result.data.addresses[0].datetime.hour_am_pm}`,
+						result.data.datetime.seconds,
 						result.data.addresses[0].datetime.date,
 		    			result.data.addresses[0].datetime.day_full,
 		    			result.data.addresses[0].datetime.offset_tzab,

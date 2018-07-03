@@ -4,6 +4,7 @@ import { TimezoneProfileService } from '../../api/timezone/timezone-profile.serv
 import { TimezoneApiService } from '../../api/timezone/timezone-api.service';
 import { TimezoneProfileItem } from './timezone-profile-item';
 import { TimezoneItem } from "../../timezone/timezone-list/timezone-item";
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
 	selector: 'timezone-profile',
@@ -12,8 +13,8 @@ import { TimezoneItem } from "../../timezone/timezone-list/timezone-item";
 	providers: []
 })
 export class TimezoneProfileComponent implements OnInit {
-	profiles : TimezoneProfileItem[];
-	private req: any;
+	profiles    : TimezoneProfileItem[];
+	private req : Subscription;
 
 	constructor(private router:Router, 
 		private activatedRoute: ActivatedRoute,
@@ -32,13 +33,15 @@ export class TimezoneProfileComponent implements OnInit {
 		let addressArray = profile.address;
 
 		addressArray.map((address) =>{
-			this.req = this.timezoneApiService.searchTimezoneData(address)
+			this.req = this.timezoneApiService
+			.searchTimezoneData(address)
 			.subscribe(result => {
 				const timezoneItem = new TimezoneItem(
 					result.data.addresses[0].city,
 					result.data.addresses[0].country,
 					`${result.data.addresses[0].datetime.hour_12_wolz}:${result.data.addresses[0].datetime.minutes} 
 					${result.data.addresses[0].datetime.hour_am_pm}`,
+					result.data.addresses[0].datetime.seconds,
 					result.data.addresses[0].datetime.date,
 	    			result.data.addresses[0].datetime.day_full,
 	    			result.data.addresses[0].datetime.offset_tzab,
