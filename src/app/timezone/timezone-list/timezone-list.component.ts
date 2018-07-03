@@ -86,7 +86,7 @@ export class TimezoneListComponent implements OnInit {
 						result.data.addresses[0].country,
 						`${result.data.addresses[0].datetime.hour_12_wolz}:${result.data.addresses[0].datetime.minutes} 
 						${result.data.addresses[0].datetime.hour_am_pm}`,
-						result.data.datetime.seconds,
+						result.data.addresses[0].datetime.seconds,
 						result.data.addresses[0].datetime.date,
 		    			result.data.addresses[0].datetime.day_full,
 		    			result.data.addresses[0].datetime.offset_tzab,
